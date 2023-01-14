@@ -41,7 +41,7 @@ function showResult(apiData) {
   resultNode.innerHTML += cards;
 }
 
-buttonElement.onclick = function () {
+const handleResult = function () {
   let inputValue = document.querySelector('input').value;
 
   if (resultNode.innerHTML !== '') {
@@ -59,6 +59,15 @@ buttonElement.onclick = function () {
   }
 }
 
+function handleResultOnEnter(e) {
+  if(e.key === 'Enter') {
+    handleResult();
+  }
+}
+
+buttonElement.onclick = handleResult;
+inputElement.onkeydown = handleResultOnEnter;
+
 inputElement.onclick = function () {
   inputElement.style.backgroundColor = 'transparent';
   inputElement.value = '';
@@ -66,3 +75,7 @@ inputElement.onclick = function () {
     resultNode.innerHTML = '';
   }
 }
+
+
+
+
