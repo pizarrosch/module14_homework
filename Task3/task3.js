@@ -9,10 +9,10 @@ const xhr = new XMLHttpRequest();
 function getResponse(url, callback) {
   xhr.open('get', url, true);
 
-  xhr.onload = function() {
+  xhr.onload = function () {
     const result = JSON.parse(xhr.response);
-    if(callback) {
-      callback (result);
+    if (callback) {
+      callback(result);
     }
   }
 
@@ -20,7 +20,7 @@ function getResponse(url, callback) {
 }
 
 const resultNode = document.querySelector('.result');
-const buttonElement= document.querySelector('.button');
+const buttonElement = document.querySelector('.button');
 const inputElement = document.querySelector('.input');
 
 function showResult(apiData) {
@@ -42,12 +42,27 @@ function showResult(apiData) {
 }
 
 buttonElement.onclick = function () {
-  const inputValue = document.querySelector('input').value;
+  let inputValue = document.querySelector('input').value;
+
+  if (resultNode.innerHTML !== '') {
+    resultNode.innerHTML = '';
+  }
 
   if (inputValue < 1 || inputValue > 10) {
-    resultNode.innerHTML = `<p style="color: red; font-size: 16px; margin-top: -30px">Число вне диапазона от 1 до 10</p>`;
+    resultNode.innerHTML = `
+      <p style="color: red; font-size: 16px; margin-top: -30px">Число вне диапазона от 1 до 10</p>
+    `;
     inputElement.style.backgroundColor = '#e77c5a';
   } else {
-    getResponse(`https://picsum.photos/v2/list?limit=${inputValue}`, showResult)
+    getResponse(`https://picsum.photos/v2/list?limit=${inputValue}`, showResult);
+    inputElement.value = '';
+  }
+}
+
+inputElement.onclick = function () {
+  inputElement.style.backgroundColor = 'transparent';
+  inputElement.value = '';
+  if (resultNode.innerHTML.includes('Число вне диапазона от 1 до 10')) {
+    resultNode.innerHTML = '';
   }
 }
