@@ -50,7 +50,7 @@ const handleResult = function () {
 
   if (inputValue < 1 || inputValue > 10) {
     resultNode.innerHTML = `
-      <p style="color: red; font-size: 16px; margin-top: -30px">Число вне диапазона от 1 до 10</p>
+      <p class="errorStyle">Число вне диапазона от 1 до 10</p>
     `;
     inputElement.style.backgroundColor = '#e77c5a';
   } else {
